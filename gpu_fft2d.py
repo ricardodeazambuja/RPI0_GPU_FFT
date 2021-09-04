@@ -28,7 +28,7 @@ ifft2d.argtypes = [
 
 def check_error(res):
     assert res != -1, "Unable to enable V3D. Please check your firmware is up to date.\n"
-    assert res != -2, f"Shape {N}x{M} not supported.  Try between {2**8} and {2**22}.\n"
+    assert res != -2, f"Shape not supported.  Try N between {2**8} and {2**22}.\n"
     assert res != -3, "Out of memory. Try a smaller batch or increase GPU memory.\n"
     assert res != -4, "Unable to map Videocore peripherals into ARM memory space.\n"
     assert res != -5, "Can't open libbcm_host.\n"
