@@ -2,7 +2,7 @@
 # http://www.peteronion.org.uk/FFT/FastFourier.html
 
 # You need to use sudo because of the GPU
-# sudo -E python test_gpu_fft2d.py
+# sudo -E python rpi0_gpu_fft.py
 
 import ctypes
 from math import log2
