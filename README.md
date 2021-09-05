@@ -19,6 +19,8 @@ Totally untested and without any guarantee what-so-ever :D
 You can try it by running:
 ```$ sudo -E python rpi0_gpu_fft.py```.
 
+I wrote this hack to use with my "smart" camera: https://github.com/ricardodeazambuja/Maple-Syrup-Pi-Camera
+
 ## Original code / ideas from:
 * http://www.aholme.co.uk/GPU_FFT/Main.htm
 * http://www.peteronion.org.uk/FFT/FastFourier.html
