@@ -16,18 +16,18 @@ S = $(D)hex/shader_256.hex \
     $(D)hex/shader_2048k.hex \
     $(D)hex/shader_4096k.hex
 
-C = $(D)mailbox.c $(D)gpu_fft.c $(D)gpu_fft_base.c $(D)gpu_fft_twiddles.c $(D)gpu_fft_shaders.c
+C = $(D)mailbox.c $(D)gpu_fft.c $(D)gpu_fft_base.c $(D)gpu_fft_twiddles.c $(D)gpu_fft_shaders.c $(D)gpu_fft_trans.c
 
-C1D = $(C) gpu_fft_2d.c gpu_fft_trans.c
+C1D = $(C) rpi0_gpu_fft.c
 
-H1D = gpu_fft.h mailbox.h gpu_fft_trans.h
+H1D = $(D)gpu_fft.h $(D)mailbox.h $(D)gpu_fft_trans.h
 
 F = -lrt -lm -ldl
 
 all:	gpu_fft_2d.bin
 
 gpu_fft_2d.bin: $(S) $(C1D) $(H1D)
-	gcc -fPIC -shared -o gpu_fft_2d.so $(f) $(C1D)
+	gcc -fPIC -shared -o rpi0_gpu_fft.so $(f) $(C1D)
     # gcc -fPIC -shared -ffast-math -mtune=native -O3 -o gpu_fft_2d.so $(f) $(C1D)
 
 clean:
