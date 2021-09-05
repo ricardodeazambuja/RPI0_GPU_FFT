@@ -11,7 +11,7 @@ The CPU is always faster for small arrays (and the min size for GPU is 256).
 Clone this repo (or simply download all files to your RPI0) and run ```make```. 
 It will generate a file ```rpi0_gpu_fft.so``` that you should have in the same directory as the ```rpi0_gpu_fft.py```. That's it ;)
 
-I'm supposing your RPI0 has the rest of the files necessary installed by default (```/opt/vc/src/hello_pi/hello_fft/```).
+I'm supposing your RPI0 has [the rest of the files necessary](https://github.com/raspberrypi/firmware/tree/2878d98d7d0c113efbe6419bde4c4d3b90d2f43e/opt/vc/src/hello_pi/hello_fft) installed by default (```/opt/vc/src/hello_pi/hello_fft/```).
 
 ## TL;DR
 Totally untested and without any guarantee what-so-ever :D  
