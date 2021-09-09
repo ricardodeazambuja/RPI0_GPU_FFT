@@ -135,34 +135,53 @@ if __name__ == "__main__":
     # import matplotlib.pyplot as plt
 
     N = 1
-    M = 2**22
+    M = 2**16
     print(f"Testing the FFT/IFFT 1D... Length {M} for {N} times")
     # i = np.ones((N,M), dtype=np.float32).astype(np.complex64)*3.1415
     i = np.ones((N,M), dtype=np.float32)*3.1415
     i[:,2:int(M/2)] = 0.0
     
-    time_init = time.monotonic()
-    res = gpu_fft1d(i)
-    i2 = gpu_ifft1d(res)
-    print(f"GPU FFT/IFFT 1D time {N}x{M}: {time.monotonic()-time_init}")
-    print("FFT1D")
-    print(res[0,:4])
-    print(res.shape,res.dtype)
-    print("IFFT1D")
-    print(i2[0,:4])
-    print(i2.shape,i2.dtype)
+    trials = 10
+    time_v = []
+    for j in range(trials):
+        time_init = time.monotonic()
+        res = np.fft.fft(i)
+        i2 = np.fft.ifft(res)
+        time_end = time.monotonic()-time_init
+        print(f"CPU FFT/IFFT 1D time {N}x{M}: {time_end}")
+        print("FFT1D")
+        print(res[0,:4])
+        print(res.shape,res.dtype)
+        print("IFFT1D")
+        print(i2[0,:4])
+        print(i2.shape,i2.dtype)
+        time_v.append(time_end)
+        del res, i2
+    
+    cpu1_avg = sum(time_v)/trials
+    print(f"CPU FFT/IFFT 1D time {N}x{M}: avg time {cpu1_avg}")
 
-    time_init = time.monotonic()
-    res = np.fft.fft(i)
-    i2 = np.fft.ifft(res)
-    print(f"CPU FFT/IFFT 1D time {N}x{M}: {time.monotonic()-time_init}")
-    print("FFT1D")
-    print(res[0,:4])
-    print(res.shape,res.dtype)
-    print("IFFT1D")
-    print(i2[0,:4])
-    print(i2.shape,i2.dtype)
+    time_v = []
+    for j in range(trials):
+        time_init = time.monotonic()
+        res = gpu_fft1d(i)
+        i2 = gpu_ifft1d(res)
+        time_end = time.monotonic()-time_init
+        print(f"GPU FFT/IFFT 1D time {N}x{M}: {time_end}")
+        print("FFT1D")
+        print(res[0,:4])
+        print(res.shape,res.dtype)
+        print("IFFT1D")
+        print(i2[0,:4])
+        print(i2.shape,i2.dtype)
+        time_v.append(time_end)
+        del res, i2
+    
+    gpu1_avg = sum(time_v)/trials
+    print(f"GPU FFT/IFFT 1D time {N}x{M}: avg time {gpu1_avg}")
+    del i
 
+    print(f"GPU/CPU FFT/IFFT 1D time {N}x{M}: avg time ({trials} trials): {cpu1_avg/gpu1_avg:0.4f}")
 
     N = 1024
     M = 1024
@@ -170,32 +189,50 @@ if __name__ == "__main__":
     i = np.ones((N,M), dtype=np.float32)*3.1415
     i[:,2:int(M/2)] = 0.0
         
+    time_v = []
+    for j in range(trials):
+        time_init = time.monotonic()
+        res = np.fft.fft2(i)
+        i2 = np.fft.ifft2(res)
+        time_end = time.monotonic()-time_init
+        print(f"CPU FFT/IFFT 2D time {N}x{M}: {time_end}")
+        print("FFT2D")
+        print(res[0,:4])
+        print(res[-1,:4])
+        print(res.shape,res.dtype)
+        print("IFFT2D")
+        print(i2[0,:4])
+        print(i2[-1,:4])
+        print(i2.shape,i2.dtype)
+        time_v.append(time_end)
+        del res, i2
+    
+    cpu1_avg = sum(time_v)/trials
+    print(f"CPU FFT/IFFT 2D time {N}x{M}: avg {cpu1_avg}")
+    
+    
+    time_v = []
+    for j in range(trials):
+        time_init = time.monotonic()
+        res = gpu_fft2d(i)
+        i2 = gpu_ifft2d(res)
+        time_end = time.monotonic()-time_init
+        print(f"GPU FFT/IFFT 2D time {N}x{M}: {time_end}")
+        print("FFT2D")
+        print(res[0,:4])
+        print(res[-1,:4])
+        print(res.shape,res.dtype)
+        print("IFFT2D")
+        print(i2[0,:4])
+        print(i2[-1,:4])
+        print(i2.shape,i2.dtype)
+        time_v.append(time_end)
+        del res, i2
 
-    time_init = time.monotonic()
-    res = gpu_fft2d(i)
-    i2 = gpu_ifft2d(res)
-    print(f"GPU FFT/IFFT 2D time {N}x{M}: {time.monotonic()-time_init}")
-    print("FFT2D")
-    print(res[0,:4])
-    print(res[-1,:4])
-    print(res.shape,res.dtype)
-    print("IFFT2D")
-    print(i2[0,:4])
-    print(i2[-1,:4])
-    print(i2.shape,i2.dtype)
+    gpu1_avg = sum(time_v)/trials
+    print(f"GPU FFT/IFFT 2D time {N}x{M}: avg {gpu1_avg}")
 
-    time_init = time.monotonic()
-    res = np.fft.fft2(i)
-    i2 = np.fft.ifft2(res)
-    print(f"CPU FFT/IFFT 2D time {N}x{M}: {time.monotonic()-time_init}")
-    print("FFT2D")
-    print(res[0,:4])
-    print(res[-1,:4])
-    print(res.shape,res.dtype)
-    print("IFFT2D")
-    print(i2[0,:4])
-    print(i2[-1,:4])
-    print(i2.shape,i2.dtype)
+    print(f"GPU/CPU FFT/IFFT 2D time {N}x{M}: avg time ({trials} trials): {cpu1_avg/gpu1_avg:0.4f}")
 
     # # plt.figure(figsize=(10,10))
     # # plt.imshow(re, cmap='gray')
