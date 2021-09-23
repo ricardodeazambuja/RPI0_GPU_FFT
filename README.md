@@ -24,3 +24,7 @@ I wrote this hack to use with my "smart" camera: https://github.com/ricardodeaza
 ## Original code / ideas from:
 * http://www.aholme.co.uk/GPU_FFT/Main.htm
 * http://www.peteronion.org.uk/FFT/FastFourier.html
+
+
+## Misc
+* https://hackaday.com/2021/09/22/even-faster-fourier-transforms-on-the-raspbery-pi-zero/ (the comments may have some interesting suggestions / ideas)
